@@ -1,0 +1,21 @@
+---
+- name: Pause Deployment
+  hosts: localhost
+  gather_facts: no
+  tasks:     
+    - name: Pause a Deployment.
+      kubernetes.core.k8s:
+        namespace: pacman
+        definition:
+         apiVersion: apps/v1
+         kind: Deployment
+         metadata:
+           name: nginx-app
+           namespace: pacman
+         spec:
+           paused: true
+        wait: yes
+        wait_condition:
+          type: Progressing
+          status: Unknown
+          reason: DeploymentPaused
