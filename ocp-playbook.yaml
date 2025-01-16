@@ -1,0 +1,16 @@
+---
+- name: Change secret
+  hosts: localhost
+  gather_facts: no
+  tasks:     
+    - name: Change secret
+      kubernetes.core.k8s:
+        namespace: test-ansible
+        definition:
+         apiVersion: v1
+         data:
+           datakey: "datavaluenew"
+         kind: Secret
+         metadata:
+           name: secret-one
+      
